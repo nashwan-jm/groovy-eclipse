@@ -69,7 +69,6 @@ public CompilationUnit(PackageFragment parent, String name, WorkingCopyOwner own
 	this.owner = owner;
 }
 
-
 @Override
 public UndoEdit applyTextEdit(TextEdit edit, IProgressMonitor monitor) throws JavaModelException {
 	IBuffer buffer = getBuffer();
@@ -107,15 +106,16 @@ public void becomeWorkingCopy(IProgressMonitor monitor) throws JavaModelExceptio
 	IProblemRequestor requestor = this.owner == null ? null : this.owner.getProblemRequestor(this);
 	becomeWorkingCopy(requestor, monitor);
 }
+
 @Override
 protected boolean buildStructure(OpenableElementInfo info, final IProgressMonitor pm, Map newElements, IResource underlyingResource) throws JavaModelException {
 	CompilationUnitElementInfo unitInfo = (CompilationUnitElementInfo) info;
 
-	// ensure buffer is opened
-	IBuffer buffer = getBufferManager().getBuffer(CompilationUnit.this);
-	if (buffer == null) {
-		openBuffer(pm, unitInfo); // open buffer independently from the info, since we are building the info
-	}
+//	// ensure buffer is opened
+//	IBuffer buffer = getBufferManager().getBuffer(CompilationUnit.this);
+//	if (buffer == null) {
+//		openBuffer(pm, unitInfo); // open buffer independently from the info, since we are building the info
+//	}
 
 	// generate structure and compute syntax problems if needed
 	CompilationUnitStructureRequestor requestor = new CompilationUnitStructureRequestor(this, unitInfo, newElements);
@@ -205,10 +205,10 @@ protected boolean buildStructure(OpenableElementInfo info, final IProgressMonito
 			((ASTHolderCUInfo) info).ast = cu;
 		}
 	} finally {
-	    if (compilationUnitDeclaration != null) {
-	    	unitInfo.hasFunctionalTypes = compilationUnitDeclaration.hasFunctionalTypes();
-	        compilationUnitDeclaration.cleanUp();
-	    }
+		if (compilationUnitDeclaration != null) {
+			unitInfo.hasFunctionalTypes = compilationUnitDeclaration.hasFunctionalTypes();
+			compilationUnitDeclaration.cleanUp();
+		}
 	}
 
 	return unitInfo.isStructureKnown();

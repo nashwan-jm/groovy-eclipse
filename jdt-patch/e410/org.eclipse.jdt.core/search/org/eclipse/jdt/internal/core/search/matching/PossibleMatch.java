@@ -94,6 +94,12 @@ public char[] getContents() {
 			contents = ("module " + this.autoModuleName + "{}").toCharArray();  //$NON-NLS-1$//$NON-NLS-2$
 			this.sourceFileName = "module-info.java"; //$NON-NLS-1$
 			this.compoundName = new char[][] { "module-info".toCharArray()}; //$NON-NLS-1$
+//		} else if (this.openable instanceof CompilationUnit) {
+//			try {
+//				contents = this.openable.getBuffer().getCharacters();
+//			} catch (JavaModelException e) {
+//				contents = this.document.getCharContents();
+//			}
 		} else {
 			contents = this.document.getCharContents();
 		}

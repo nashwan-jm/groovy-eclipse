@@ -33,7 +33,6 @@ import java.util.*;
 import org.codehaus.jdt.groovy.integration.LanguageSupportFactory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubMonitor;
@@ -704,7 +703,7 @@ public void resolve(Openable[] openables, HashSet localTypes, IProgressMonitor m
 			}
 		}
 
-		subMonitor.split(1);
+		subMonitor.worked(1);
 		// build type bindings
 		// GROOVY edit
 		//Parser parser = new Parser(this.lookupEnvironment.problemReporter, true);
@@ -719,10 +718,9 @@ public void resolve(Openable[] openables, HashSet localTypes, IProgressMonitor m
 				// contains a potential subtype as a local or anonymous type?
 				boolean containsLocalType = false;
 				if (localTypes == null) { // case of hierarchy on region
-					containsLocalType = true;
+//					containsLocalType = true;
 				} else {
-					IPath path = cu.getPath();
-					containsLocalType = cu.isWorkingCopy() ? true /* presume conservatively */ : localTypes.contains(path.toString());
+					containsLocalType = cu.isWorkingCopy() ? true /* presume conservatively */ : localTypes.contains(cu.getPath().toString());
 				}
 
 				// build parsed unit
@@ -834,10 +832,10 @@ public void resolve(Openable[] openables, HashSet localTypes, IProgressMonitor m
 			}
 		}
 
-		SubMonitor unitLoopMonitor = subMonitor.split(1).setWorkRemaining(unitsIndex);
+		IProgressMonitor unitLoopMonitor = subMonitor.split(1).setWorkRemaining(unitsIndex);
 		// complete type bindings (i.e. connect super types)
 		for (int i = 0; i < unitsIndex; i++) {
-			unitLoopMonitor.split(1);
+			unitLoopMonitor.worked(1);
 			CompilationUnitDeclaration parsedUnit = parsedUnits[i];
 			if (parsedUnit != null) {
 				try {
@@ -854,11 +852,11 @@ public void resolve(Openable[] openables, HashSet localTypes, IProgressMonitor m
 		// (in this case the constructor is needed when resolving local types)
 		// (see https://bugs.eclipse.org/bugs/show_bug.cgi?id=145333)
 		try {
-			SubMonitor completeLoopMonitor = subMonitor.split(1).setWorkRemaining(unitsIndex);
+			IProgressMonitor completeLoopMonitor = subMonitor.split(1).setWorkRemaining(unitsIndex);
 			this.lookupEnvironment.completeTypeBindings(parsedUnits, hasLocalType, unitsIndex);
 			// remember type bindings
 			for (int i = 0; i < unitsIndex; i++) {
-				completeLoopMonitor.split(1);
+				completeLoopMonitor.worked(1);
 				CompilationUnitDeclaration parsedUnit = parsedUnits[i];
 				// https://bugs.eclipse.org/bugs/show_bug.cgi?id=462158
 				// Certain assist features require type hierarchy even with code with compiler errors.

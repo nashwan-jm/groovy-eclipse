@@ -282,12 +282,22 @@ public abstract class HierarchyBuilder {
 			}
 		}
 	}
-/**
- * Create an ICompilationUnit info from the given compilation unit on disk.
- */
+	/**
+	 * Create an ICompilationUnit info from the given compilation unit on disk.
+	 */
 	protected ICompilationUnit createCompilationUnitFromPath(Openable handle, IFile file) {
 		final char[] elementName = handle.getElementName().toCharArray();
 		return new ResourceCompilationUnit(file, null) {
+//			@Override
+//			public char[] getContents() {
+//				try {
+//					org.eclipse.jdt.core.IBuffer buffer = handle.getBuffer();
+//					if (buffer != null) return buffer.getCharacters();
+//				} catch (JavaModelException e) {
+//					// ignore
+//				}
+//				return super.getContents();
+//			}
 			@Override
 			public char[] getFileName() {
 				return elementName;
@@ -295,49 +305,48 @@ public abstract class HierarchyBuilder {
 		};
 	}
 	/**
- * Creates the type info from the given class file on disk and
- * adds it to the given list of infos.
- */
-protected IBinaryType createInfoFromClassFile(Openable handle, IResource file) {
-	IBinaryType info = null;
-	try {
-		info = Util.newClassFileReader(file);
-	} catch (org.eclipse.jdt.internal.compiler.classfmt.ClassFormatException e) {
-		if (TypeHierarchy.DEBUG) {
-			e.printStackTrace();
+	 * Creates the type info from the given class file on disk and
+	 * adds it to the given list of infos.
+	 */
+	protected IBinaryType createInfoFromClassFile(Openable handle, IResource file) {
+		IBinaryType info = null;
+		try {
+			info = Util.newClassFileReader(file);
+		} catch (org.eclipse.jdt.internal.compiler.classfmt.ClassFormatException e) {
+			if (TypeHierarchy.DEBUG) {
+				e.printStackTrace();
+			}
+			return null;
+		} catch (java.io.IOException e) {
+			if (TypeHierarchy.DEBUG) {
+				e.printStackTrace();
+			}
+			return null;
+		} catch (CoreException e) {
+			if (TypeHierarchy.DEBUG) {
+				e.printStackTrace();
+			}
+			return null;
 		}
-		return null;
-	} catch (java.io.IOException e) {
-		if (TypeHierarchy.DEBUG) {
-			e.printStackTrace();
-		}
-		return null;
-	} catch (CoreException e) {
-		if (TypeHierarchy.DEBUG) {
-			e.printStackTrace();
-		}
-		return null;
+		this.infoToHandle.put(info, handle);
+		return info;
 	}
-	this.infoToHandle.put(info, handle);
-	return info;
-}
 	/**
- * Create a type info from the given class file in a jar and adds it to the given list of infos.
- */
-protected IBinaryType createInfoFromClassFileInJar(Openable classFile) {
-	IOrdinaryClassFile cf = (IOrdinaryClassFile)classFile;
-	IBinaryType info;
-	try {
-		info = BinaryTypeFactory.create(cf, null);
-	} catch (JavaModelException | ClassFormatException e) {
-		if (TypeHierarchy.DEBUG) {
-			e.printStackTrace();
+	 * Create a type info from the given class file in a jar and adds it to the given list of infos.
+	 */
+	protected IBinaryType createInfoFromClassFileInJar(Openable classFile) {
+		IOrdinaryClassFile cf = (IOrdinaryClassFile)classFile;
+		IBinaryType info;
+		try {
+			info = BinaryTypeFactory.create(cf, null);
+		} catch (JavaModelException | ClassFormatException e) {
+			if (TypeHierarchy.DEBUG) {
+				e.printStackTrace();
+			}
+			return null;
 		}
-		return null;
+	
+		this.infoToHandle.put(info, classFile);
+		return info;
 	}
-
-	this.infoToHandle.put(info, classFile);
-	return info;
-}
-
 }

@@ -219,7 +219,7 @@ import org.osgi.framework.BundleContext;
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public final class JavaCore extends Plugin {
-
+public static long millis;
 	private static final IResource[] NO_GENERATED_RESOURCES = new IResource[0];
 
 	private static Plugin JAVA_CORE_PLUGIN = null;

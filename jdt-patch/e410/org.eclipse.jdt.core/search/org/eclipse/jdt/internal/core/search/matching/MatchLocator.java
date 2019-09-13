@@ -1264,8 +1264,8 @@ private boolean skipMatch(JavaProject javaProject, PossibleMatch possibleMatch) 
 protected void locateMatches(JavaProject javaProject, PossibleMatch[] possibleMatches, int start, int length) throws CoreException {
 	initialize(javaProject, length);
 	// GROOVY add
-	final boolean isInterestingProject = LanguageSupportFactory.isInterestingProject(javaProject.getProject());
-	HashSet<PossibleMatch> alreadyMatched = new HashSet<PossibleMatch>();
+	boolean isInterestingProject = LanguageSupportFactory.isInterestingProject(javaProject.getProject());
+	HashSet<PossibleMatch> alreadyMatched = new HashSet<>();
 	// GROOVY end
 	// create and resolve binding (equivalent to beginCompilation() in Compiler)
 	boolean mustResolvePattern = this.pattern.mustResolve;
@@ -1380,8 +1380,8 @@ protected void locateMatches(JavaProject javaProject, PossibleMatch[] possibleMa
 	}
 	// GROOVY add
 	// now do the clean up of groovy matches
-	for (PossibleMatch match : alreadyMatched) {
-		match.cleanUp();
+	for (PossibleMatch possibleMatch : alreadyMatched) {
+		possibleMatch.cleanUp();
 	}
 	// GROOVY end
 }
