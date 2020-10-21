@@ -56,9 +56,9 @@ abstract class CompletionTestSuite extends GroovyEclipseTestSuite {
     @Before
     final void setUpCompletionTestCase() {
         SynchronizationUtils.waitForDSLDProcessingToComplete()
-        setJavaPreference(PreferenceConstants.CODEASSIST_ADDIMPORT, 'true')
-        setJavaPreference(PreferenceConstants.CODEASSIST_INSERT_COMPLETION, 'true')
-        setJavaPreference(PreferenceConstants.CODEASSIST_GUESS_METHOD_ARGUMENTS, 'false')
+        setJavaPreference(PreferenceConstants.CODEASSIST_ADDIMPORT, true)
+        setJavaPreference(PreferenceConstants.CODEASSIST_INSERT_COMPLETION, true)
+        setJavaPreference(PreferenceConstants.CODEASSIST_GUESS_METHOD_ARGUMENTS, false)
     }
 
     @After

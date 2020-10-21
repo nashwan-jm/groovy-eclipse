@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2019 the original author or authors.
+ * Copyright 2009-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -280,7 +280,7 @@ public class GroovySemanticReconciler implements IJavaReconcilingListener {
             if (editor == null || presenter == null) return;
             monitor.beginTask("Groovy semantic highlighting", 10);
             GroovyCompilationUnit unit = editor.getGroovyCompilationUnit();
-            if (unit != null) {
+            if (unit != null && unit.exists()) {
                 presenter.setCanceled(monitor.isCanceled());
                 if (update(monitor, 1)) return;
 

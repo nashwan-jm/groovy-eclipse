@@ -202,7 +202,7 @@ public class TestProject {
         appendPackage(buf, packageFrag, source);
         buf.append(source);
 
-        ICompilationUnit unit = packageFrag.createCompilationUnit(fileName, buf.toString(), false, null);
+        ICompilationUnit unit = packageFrag.createCompilationUnit(fileName, buf.toString(), true, null);
         unit.becomeWorkingCopy(null);
         return unit;
     }

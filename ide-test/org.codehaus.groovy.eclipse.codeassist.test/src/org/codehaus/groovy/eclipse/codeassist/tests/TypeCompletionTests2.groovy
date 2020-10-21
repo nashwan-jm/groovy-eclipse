@@ -16,9 +16,7 @@
 package org.codehaus.groovy.eclipse.codeassist.tests
 
 import org.eclipse.jdt.core.JavaCore
-import org.eclipse.jdt.internal.ui.JavaPlugin
 import org.eclipse.jdt.ui.PreferenceConstants
-import org.eclipse.jface.preference.IPreferenceStore
 import org.junit.Test
 import org.osgi.framework.Version
 
@@ -148,18 +146,18 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
     @Test
     void testTypeCompletionInScript6() {
         String contents = '/* header comment */\n' +
-                'import javax.swing.plaf.ButtonUI /*tag*/ //note\n' +
-                '  // some single-line comment\n' +
-                '\n' +
-                'HTML\n' +
-                'ButtonUI'
+            'import javax.swing.plaf.ButtonUI /*tag*/ //note\n' +
+            '  // some single-line comment\n' +
+            '\n' +
+            'HTML\n' +
+            'ButtonUI'
         String expected = '/* header comment */\n' +
-                'import javax.swing.plaf.ButtonUI /*tag*/ //note\n' +
-                '  // some single-line comment\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                'HTML\n' +
-                'ButtonUI'
+            'import javax.swing.plaf.ButtonUI /*tag*/ //note\n' +
+            '  // some single-line comment\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            'HTML\n' +
+            'ButtonUI'
 
         checkProposal(contents, expected, 'HTML', 'HTML - javax.swing.text.html')
     }
@@ -255,16 +253,16 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
     @Test
     void testTypeCompletionInBrokenScript6() {
         String contents =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                'HTML'
+            '/**some stuff*/\n' +
+            'package f\n' +
+            'HTML'
         String expected =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                '\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                'HTML'
+            '/**some stuff*/\n' +
+            'package f\n' +
+            '\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            'HTML'
 
         checkProposal(contents, expected, 'HTML', 'HTML - javax.swing.text.html')
     }
@@ -272,22 +270,22 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
     @Test
     void testTypeCompletionInBrokenScript7() {
         String contents =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                '\n' +
-                'import javax.swing.plaf.ButtonUI\n' +
-                '\n' +
-                'def x(HTML\n' +
-                ''
+            '/**some stuff*/\n' +
+            'package f\n' +
+            '\n' +
+            'import javax.swing.plaf.ButtonUI\n' +
+            '\n' +
+            'def x(HTML\n' +
+            ''
         String expected =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                '\n' +
-                'import javax.swing.plaf.ButtonUI\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                'def x(HTML\n' +
-                ''
+            '/**some stuff*/\n' +
+            'package f\n' +
+            '\n' +
+            'import javax.swing.plaf.ButtonUI\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            'def x(HTML\n' +
+            ''
 
         checkProposal(contents, expected, 'HTML', 'HTML - javax.swing.text.html')
     }
@@ -295,20 +293,20 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
     @Test
     void testTypeCompletionInBrokenScript8() {
         String contents =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                '\n' +
-                'import javax.swing.plaf.ButtonUI\n' +
-                '\n' +
-                'def x(HTML'
+            '/**some stuff*/\n' +
+            'package f\n' +
+            '\n' +
+            'import javax.swing.plaf.ButtonUI\n' +
+            '\n' +
+            'def x(HTML'
         String expected =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                '\n' +
-                'import javax.swing.plaf.ButtonUI\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                'def x(HTML'
+            '/**some stuff*/\n' +
+            'package f\n' +
+            '\n' +
+            'import javax.swing.plaf.ButtonUI\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            'def x(HTML'
 
         checkProposal(contents, expected, 'HTML', 'HTML - javax.swing.text.html')
     }
@@ -316,23 +314,23 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
     @Test
     void testTypeCompletionInBrokenScript9() {
         String contents =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                '\n' +
-                'import javax.swing.plaf.ColorChooserUI\n' +
-                'import java.awt.dnd.DropTarget as Foo\n' +
-                '\n' +
-                'def x(HTML'
+            '/**some stuff*/\n' +
+            'package f\n' +
+            '\n' +
+            'import javax.swing.plaf.ColorChooserUI\n' +
+            'import java.awt.dnd.DropTarget as Foo\n' +
+            '\n' +
+            'def x(HTML'
         String expected =
-                '/**some stuff*/\n' +
-                'package f\n' +
-                '\n' +
-                'import javax.swing.plaf.ColorChooserUI\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                'import java.awt.dnd.DropTarget as Foo\n' +
-                '\n' +
-                'def x(HTML'
+            '/**some stuff*/\n' +
+            'package f\n' +
+            '\n' +
+            'import javax.swing.plaf.ColorChooserUI\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            'import java.awt.dnd.DropTarget as Foo\n' +
+            '\n' +
+            'def x(HTML'
 
         checkProposal(contents, expected, 'HTML', 'HTML - javax.swing.text.html')
     }
@@ -340,21 +338,21 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
     @Test
     void testTypeCompletionInBrokenScript10() {
         String contents =
-                '/**some stuff*/\n' +
-                '\n' +
-                'import javax.swing.plaf.ColorChooserUI\n' +
-                'import java.awt.dnd.DropTarget as Foo\n' +
-                '\n' +
-                'def x(HTML'
+            '/**some stuff*/\n' +
+            '\n' +
+            'import javax.swing.plaf.ColorChooserUI\n' +
+            'import java.awt.dnd.DropTarget as Foo\n' +
+            '\n' +
+            'def x(HTML'
         String expected =
-                '/**some stuff*/\n' +
-                '\n' +
-                'import javax.swing.plaf.ColorChooserUI\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                'import java.awt.dnd.DropTarget as Foo\n' +
-                '\n' +
-                'def x(HTML'
+            '/**some stuff*/\n' +
+            '\n' +
+            'import javax.swing.plaf.ColorChooserUI\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            'import java.awt.dnd.DropTarget as Foo\n' +
+            '\n' +
+            'def x(HTML'
 
         checkProposal(contents, expected, 'HTML', 'HTML - javax.swing.text.html')
     }
@@ -362,29 +360,29 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
     @Test // GRECLIPSE-926
     void testTypeCompletionInBrokenScript11() {
         String contents =
-                'package f\n' +
-                '\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                '\n' +
-                '   void nuthin() {\n' +
-                '         if (! (this instanceof HTMLT/*_*/) {\n' +
-                '            HTML\n' +
-                '         }\n' +
-                '    }'
+            'package f\n' +
+            '\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            '\n' +
+            '   void nuthin() {\n' +
+            '         if (! (this instanceof HTMLT/*_*/) {\n' +
+            '            HTML\n' +
+            '         }\n' +
+            '    }'
         String expected =
-                'package f\n' +
-                '\n' +
-                'import javax.swing.text.html.HTML\n' +
-                '\n' +
-                'import org.w3c.dom.html.HTMLTableCaptionElement\n' +
-                '\n' +
-                '\n' +
-                '   void nuthin() {\n' +
-                '         if (! (this instanceof HTMLTableCaptionElement/*_*/) {\n' +
-                '            HTML\n' +
-                '         }\n' +
-                '    }'
+            'package f\n' +
+            '\n' +
+            'import javax.swing.text.html.HTML\n' +
+            '\n' +
+            'import org.w3c.dom.html.HTMLTableCaptionElement\n' +
+            '\n' +
+            '\n' +
+            '   void nuthin() {\n' +
+            '         if (! (this instanceof HTMLTableCaptionElement/*_*/) {\n' +
+            '            HTML\n' +
+            '         }\n' +
+            '    }'
 
         checkProposal(contents, expected, 'HTMLT', 'HTMLTableCaptionElement - org.w3c.dom.html')
     }
@@ -407,38 +405,33 @@ final class TypeCompletionTests2 extends CompletionTestSuite {
 
     @Test // https://github.com/groovy/groovy-eclipse/issues/177
     void testTypeCompletionForClassAnnotation() {
-        IPreferenceStore prefs = JavaPlugin.default.preferenceStore
-        String originalOrder = prefs.getString(PreferenceConstants.ORGIMPORTS_IMPORTORDER)
-        prefs.setValue(PreferenceConstants.ORGIMPORTS_IMPORTORDER, '\\#;java;javax;groovy;groovyx;;')
-        try {
+        setJavaPreference(PreferenceConstants.ORGIMPORTS_IMPORTORDER, '\\#;java;javax;groovy;groovyx;;')
+
         String contents = 'import static org.mockito.Mockito.mock\n\n' +
-                'import org.junit.Test\n\n' +
-                '@TypeCh\n' +
-                'final class WeakReferenceSetTests {\n' +
-                '    @Test\n' +
-                '    void testAddAndEmpty() {\n' +
-                '        WeakReferenceSet set = new WeakReferenceSet()\n' +
-                '        assert set.empty\n' +
-                '        set << mock(ConcreteType)\n' +
-                '        assert !set.empty\n' +
-                '    }\n' +
-                '}'
+            'import org.junit.Test\n\n' +
+            '@TypeCh\n' +
+            'final class WeakReferenceSetTests {\n' +
+            '    @Test\n' +
+            '    void testAddAndEmpty() {\n' +
+            '        WeakReferenceSet set = new WeakReferenceSet()\n' +
+            '        assert set.empty\n' +
+            '        set << mock(ConcreteType)\n' +
+            '        assert !set.empty\n' +
+            '    }\n' +
+            '}'
         String expected = 'import static org.mockito.Mockito.mock\n\n' +
-                'import groovy.transform.TypeChecked\n\n' +
-                'import org.junit.Test\n\n' +
-                '@TypeChecked\n' +
-                'final class WeakReferenceSetTests {\n' +
-                '    @Test\n' +
-                '    void testAddAndEmpty() {\n' +
-                '        WeakReferenceSet set = new WeakReferenceSet()\n' +
-                '        assert set.empty\n' +
-                '        set << mock(ConcreteType)\n' +
-                '        assert !set.empty\n' +
-                '    }\n' +
-                '}'
+            'import groovy.transform.TypeChecked\n\n' +
+            'import org.junit.Test\n\n' +
+            '@TypeChecked\n' +
+            'final class WeakReferenceSetTests {\n' +
+            '    @Test\n' +
+            '    void testAddAndEmpty() {\n' +
+            '        WeakReferenceSet set = new WeakReferenceSet()\n' +
+            '        assert set.empty\n' +
+            '        set << mock(ConcreteType)\n' +
+            '        assert !set.empty\n' +
+            '    }\n' +
+            '}'
         checkProposal(contents, expected, '@TypeCh', 'TypeChecked - groovy.transform')
-        } finally {
-            prefs.setValue(PreferenceConstants.ORGIMPORTS_IMPORTORDER, originalOrder)
-        }
     }
 }
